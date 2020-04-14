@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { IFence } from '../app/interfaces/IFence';
 import { FenceServiceService } from './services/fence-service.service';
 import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,8 @@ export class AppComponent implements OnInit {
   dataSource: MatTableDataSource<IFence>;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -28,5 +31,7 @@ export class AppComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.fenceServiceService.getFence());
 
     this.dataSource.sort = this.sort;
+
+    this.dataSource.paginator = this.paginator;
   }
 }
